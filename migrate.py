@@ -217,6 +217,7 @@ def checkout_repo( git_url: str, checkout_path: str, *, refresh: bool = False,) 
         subprocess.check_call(git_clone_cmd)
     elif refresh:
         logger.info('Ensuring that "%s" is checked out', target_ref)
+        subprocess.check_call(('git', 'fetch', 'origin'), cwd=checkout_path)
         subprocess.check_call(('git', 'checkout', DEVEL_BRANCH), cwd=checkout_path)
         subprocess.check_call(('git', 'pull', '--rebase'), cwd=checkout_path)
         subprocess.check_call(('git', 'checkout', target_ref), cwd=checkout_path)
