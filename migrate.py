@@ -212,8 +212,10 @@ def checkout_repo( git_url: str, checkout_path: str, *, refresh: bool = False,) 
         if target_ref:
             git_clone_cmd += '--branch', target_ref
         git_clone_cmd += git_url, checkout_path
+        logger.info('Running "%s"', git_clone_cmd)
         subprocess.check_call(git_clone_cmd)
     elif refresh:
+        logger.info('Ensuring that "%s" is checked out', target_ref)
         subprocess.check_call(('git', 'checkout', target_ref), cwd=checkout_path)
         subprocess.check_call(('git', 'pull', '--rebase'), cwd=checkout_path)
 
