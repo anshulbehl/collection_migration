@@ -218,6 +218,8 @@ def checkout_repo( git_url: str, checkout_path: str, *, refresh: bool = False,) 
         logger.info('Ensuring that "%s" is checked out', target_ref)
         subprocess.check_call(('git', 'checkout', target_ref), cwd=checkout_path)
         subprocess.check_call(('git', 'pull', '--rebase'), cwd=checkout_path)
+    else:
+        logger.info('Skipping checking out the cached Core')
 
     return set(
         f.strip()
