@@ -207,6 +207,7 @@ def add_manual_check(key, value, filename):
 def checkout_repo( git_url: str, checkout_path: str, *, refresh: bool = False,) -> Set[str]:
     """Fetch and optionally refresh the repo."""
     target_ref = DEVEL_BRANCH if refresh is True else refresh
+    logger.info('vars: refresh=%r, target_ref=%r; os.path.exists(checkout_path)=%r', refresh, target_ref, os.path.exists(checkout_path))
     if not os.path.exists(checkout_path):
         git_clone_cmd = 'git', 'clone'
         if target_ref:
